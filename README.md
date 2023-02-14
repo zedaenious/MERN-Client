@@ -1,4 +1,4 @@
-Server repo to be paired with [local client](https://github.com/zedaenious/MERN-Server)
+Server repo to be paired with [local server](https://github.com/zedaenious/MERN-Server)
 
 // Client Dev Start
 * npm run dev
