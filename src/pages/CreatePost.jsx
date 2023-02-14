@@ -40,7 +40,32 @@ const CreatePost = () => {
     }
   };
 
-  const handleSubmit = () => {};
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    if(form.prompt && form.photo) {
+      setloading(true);
+
+      try {
+        const response = await fetch('http://localhost:8080/api/v1/post', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(form)
+        });
+
+        await response.json();
+        navigate('/');
+      } catch (error) {
+        console.error(error);
+      } finally {
+        setloading(false);
+      }
+    } else {
+      alert('please provide a prompt and generate an image');
+    }
+  };
 
   const handleChange = (e) => {
     setForm({...form, [e.target.name]: e.target.value});
@@ -63,7 +88,7 @@ const CreatePost = () => {
             labelName="your name"
             type="text"
             name="name"
-            placeholder="John Doe"
+            placeholder="Jane Doe"
             value={form.name}
             handleChange={handleChange}
           />
@@ -71,7 +96,7 @@ const CreatePost = () => {
             labelName="prompt"
             type="text"
             name="prompt"
-            placeholder="A 3D render of a rainbow colored hot air balloon flying above a reflective lake"
+            placeholder="feed me a prompt, hooman!!"
             value={form.prompt}
             handleChange={handleChange}
             isSurpriseMe
